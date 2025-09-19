@@ -44,9 +44,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/api/auth/*").permitAll() // Toutes les requêtes pour cet API sont autorisés sans être connecté (login, signup)
-                                .anyRequest().authenticated()) // Les autres requêtes nécessitent d'être authentifié
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/auth/*").permitAll() // Toutes les requêtes pour cet API sont autorisés sans être connecté (login, signup)
+                        .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN") // accès uniquement pour les rôles admins
+                        .anyRequest().authenticated()) // Les autres requêtes nécessitent d'être authentifié
                 .addFilterBefore(new JwtFilter(customUserDetailsService, jwtUtils), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

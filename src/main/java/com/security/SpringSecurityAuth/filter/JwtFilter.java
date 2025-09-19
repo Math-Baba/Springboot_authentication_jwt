@@ -34,12 +34,12 @@ public class JwtFilter extends OncePerRequestFilter { // Filtre quis'exécute un
         String jwt = null;
 
         // Vérifie que l'en-tête existe et commence bien par "Bearer"
-        if(authHeader != null && authHeader.startsWith("Bearer")){
+        if(authHeader != null && authHeader.startsWith("Bearer ")){
 
             // Extrait uniquement le token (après "Bearer ")
             jwt = authHeader.substring(7);
 
-            // Récupère le username contenu dans le token
+            // Récupère l'username contenu dans le token
             username = jwtUtils.extractUsername(jwt);
         }
 

@@ -50,8 +50,12 @@ public class AuthController {
             // Vérification des identifiants (username + mot de passe)
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
             if (authentication.isAuthenticated()){
+
+                // On récupère l'utilisateur en base pour avoir ses rôles
+                User dbUser = userRepository.findByUsername(user.getUsername());
+
                 Map<String, Object> authData = new HashMap<>();
-                authData.put("token", jwtUtils.generateToken(user.getUsername()));
+                authData.put("token", jwtUtils.generateToken(dbUser.getUsername(), dbUser.getRoles()));
                 authData.put("type", "Bearer");
                 return ResponseEntity.ok(authData);
             }

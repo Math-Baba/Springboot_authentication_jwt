@@ -12,6 +12,7 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 
 @Component 
@@ -26,8 +27,9 @@ public class JwtUtils {
     private long expirationTime;
 
     // Génère un token simple contenant le username en subject
-    public String generateToken(String username){
+    public String generateToken(String username, Set<String> roles){
         Map<String, Object> claims = new HashMap<>();
+        claims.put("roles", roles);
         return createToken(claims, username);
     }
 

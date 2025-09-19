@@ -3,6 +3,9 @@ package com.security.SpringSecurityAuth.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "users")
 @Data
@@ -12,5 +15,6 @@ public class User {
     private Long id;
     private String username;
     private String password;
-    private String role;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<String> roles = new HashSet<>();
 }
