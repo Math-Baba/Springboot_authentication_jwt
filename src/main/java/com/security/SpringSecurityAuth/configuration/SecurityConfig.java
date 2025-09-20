@@ -14,6 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import static org.springframework.security.config.Customizer.withDefaults;
+
 
 @Configuration
 @EnableWebSecurity
@@ -48,6 +50,10 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/*").permitAll() // Toutes les requêtes pour cet API sont autorisés sans être connecté (login, signup)
                         .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN") // accès uniquement pour les rôles admins
                         .anyRequest().authenticated()) // Les autres requêtes nécessitent d'être authentifié
+                .httpBasic(withDefaults()) // Pour les tests simples (login basic)
+                .formLogin(form -> form // Nouveau DSL pour le login form
+                        .permitAll()
+                )
                 .addFilterBefore(new JwtFilter(customUserDetailsService, jwtUtils), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
