@@ -3,15 +3,19 @@
 ## Description
 Ce projet est une application Spring Boot qui met en œuvre plusieurs méthodes d’authentification et de gestion des utilisateurs :
 * **Authentification par Basic Auth**
+  
 Utilisée principalement à des fins de test, cette méthode repose sur l’envoi des identifiants (username et password) encodés en Base64 dans l’en-tête HTTP. Elle permet de valider l’identité de l’utilisateur, mais n’intègre pas de mécanismes avancés d’autorisation. 
 
 * **Authentification par formulaire (Form Login)**
+  
 Spring Security fournit un formulaire standard permettant à l’utilisateur de saisir ses identifiants. Après authentification réussie, une session est créée et associée à l’utilisateur. Cette approche illustre la distinction entre authentification (connexion via le formulaire) et autorisation (accès restreint aux ressources selon le rôle attribué).
 
 * **Authentification stateless avec JWT (JSON Web Token)**
+  
 Dans ce mécanisme, une fois l’utilisateur authentifié, un token signé est généré et transmis au client. Ce token contient des informations sur l’identité et les rôles de l’utilisateur. À chaque requête, le client présente ce token, permettant au serveur de valider l’identité et de contrôler l’accès aux ressources protégées (autorisation basée sur les rôles).
 
 * **Authentification par OAuth2 (Google)**
+  
 L’application délègue l’authentification à un fournisseur externe (Google). L’utilisateur est redirigé vers Google pour prouver son identité. Une fois authentifié, l’application obtient un jeton d’accès et peut récupérer des informations telles que le nom ou l’email. L’autorisation est ensuite appliquée au sein de l’application en fonction des rôles attribués. Ce mécanisme renforce la sécurité et améliore l’expérience utilisateur en supprimant la gestion locale des mots de passe.
 
 ## Stack technique
