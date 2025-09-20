@@ -40,6 +40,7 @@ git clone https://github.com/Math-Baba/Springboot_authentication_jwt.git
 cd Springboot_authentication_jwt
 ```
 2. Configurer la base PostgreSQL
+   
 Créez une base sur PostgreSQL (ex: security_db) puis mettre à jour **application.poperties** :
 ```bash
 spring.datasource.url=jdbc:postgresql://localhost:5432/security_db
@@ -50,12 +51,14 @@ spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 ```
 3. Configurer la clé JWT
+   
 Toujours dans **application.properties**, ajoutrez une clé secrète et un temps d'expiration de la clé
 ```bash
 app.secret-key= # Insérez une clé JWT
 app.expiration-time= # Temps d'expiration de la clé en millisecondes
 ```
 4. Configurer OAuth2 Google
+   
 Toujours dans **application.properties**, ajoutez le client-id et le client-secret obtenu grâce à la création d'identifiants sur Google Cloud Console.
 ```bash
 spring.security.oauth2.client.registration.google.client-id= # Insérez votre client-id
