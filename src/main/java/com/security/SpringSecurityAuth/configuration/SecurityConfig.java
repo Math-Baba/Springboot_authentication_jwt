@@ -50,6 +50,13 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/*").permitAll() // Toutes les requêtes pour cet API sont autorisés sans être connecté (login, signup)
                         .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN") // accès uniquement pour les rôles admins
                         .anyRequest().authenticated()) // Les autres requêtes nécessitent d'être authentifié
+                .oauth2Login(oauth2 -> oauth2
+                        .defaultSuccessUrl("/api/home") // page après login réussi
+                        .failureUrl("/login?error=true")
+                )
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/login").permitAll()
+                )
                 .httpBasic(withDefaults()) // Pour les tests simples (login basic)
                 .formLogin(form -> form // Nouveau DSL pour le login form
                         .permitAll()
